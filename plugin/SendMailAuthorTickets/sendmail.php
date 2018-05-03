@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: ramon149
- * Date: 12.12.17
- * Time: 11:44
+ * Plugin ModX
+ * Send message:
+ * - admin/manager about create new ticket
+ * - user about publich ticket
  */
 
 switch ($modx->event->name) {
@@ -30,14 +31,13 @@ switch ($modx->event->name) {
                             'user_fullname' => $user_fullname,
                         ));
 
-                        $message = $modx->getChunk('AddNewMk');
+                        $message = $modx->getChunk('chank_name');
                         $modx->getService('mail', 'mail.modPHPMailer');
                         $modx->mail->set(modMail::MAIL_BODY, $message);
-                        $modx->mail->set(modMail::MAIL_FROM,'noreply@master-diy.ru');
-                        $modx->mail->set(modMail::MAIL_FROM_NAME,'Сделай сам - Шаг за шагом');
-                        $modx->mail->set(modMail::MAIL_SUBJECT,'Мастер-класс опубликован - Сделай сам - Шаг за шагом');
-                        //$modx->mail->address('to', 'admin@master-diy.ru');
-                        $modx->mail->address('to', 'ramon149@yandex.ru');
+                        $modx->mail->set(modMail::MAIL_FROM,'email_in_FROM');
+                        $modx->mail->set(modMail::MAIL_FROM_NAME,'from_real_name');
+                        $modx->mail->set(modMail::MAIL_SUBJECT,'subject');
+                        $modx->mail->address('to', 'email_in_TO');
                         $modx->mail->setHTML(true);
 
                         if (!$modx->mail->send()) {
@@ -75,14 +75,13 @@ switch ($modx->event->name) {
                         'ticket_url' => $ticket_url ,
                     ));
 
-                    $message = $modx->getChunk('PublishNewMK');
+                    $message = $modx->getChunk('chank_name');
                     $modx->getService('mail', 'mail.modPHPMailer');
                     $modx->mail->set(modMail::MAIL_BODY, $message);
-                    $modx->mail->set(modMail::MAIL_FROM,'noreply@master-diy.ru');
-                    $modx->mail->set(modMail::MAIL_FROM_NAME,'Сделай сам - Шаг за шагом');
-                    $modx->mail->set(modMail::MAIL_SUBJECT,'Мастер-класс опубликован - Сделай сам - Шаг за шагом');
-                    //$modx->mail->address('to', $email);
-                    $modx->mail->address('to', 'ramon149@yandex.ru');
+                    $modx->mail->set(modMail::MAIL_FROM,'email_in_FROM');
+                    $modx->mail->set(modMail::MAIL_FROM_NAME,'from_real_name');
+                    $modx->mail->set(modMail::MAIL_SUBJECT,'subject');
+                    $modx->mail->address('to', $user_email);
                     $modx->mail->setHTML(true);
 
                     if (!$modx->mail->send()) {
@@ -94,6 +93,4 @@ switch ($modx->event->name) {
             }
         }
         break;
-
-
 }
